@@ -23,7 +23,7 @@ export const MainPage = () => {
         <button onClick={getThis}>Press</button>
         <div className="flex justify-center">
         <div className="flex flex-wrap w-auto gap-x-7 justify-center mx-7">
-            {flats.length>1 ? flats.map((e,i)=><FlatCard getThis={getThis} flats={flats[i]}/>) : null}
+            {flats.length>1 ? flats.map((e,i)=><FlatCard getThis={getThis} flats={flats[i]} key={i}/>) : null}
         </div>
         </div>
       </div>
