@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Route,Routes } from 'react-router-dom'
 import { FlatPage } from './FlatPage/FlatPage'
+import { MainPage } from './MainPage/MainPage'
 
 function App() {
   const [flat, setFlat] = useState([{
@@ -21,7 +22,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path='' element={<FlatPage flat={flat[0]}/>}/>
+      <Route path='/' element={<MainPage/>}/>
+      <Route path='/flat/*' element={<FlatPage/>}/>
     </Routes>
   )
 }

@@ -1,3 +1,4 @@
+
 import { useLocation, useParams, Link } from 'react-router-dom'
 import Sol_Picture from '/Sol_Picture.png'
 import { useEffect, useState } from 'react'
@@ -12,10 +13,12 @@ export function FlatPage(){
     console.log(location)
     
 
+
     return(
         <div>
             {/* Logo */}
             <div className='flex w-auto justify-center' >
+
             <Link to="/"><img src={Sol_Picture} alt="Sol"
                 className='w-48'/></Link>
             </div>
@@ -44,6 +47,7 @@ export function FlatPage(){
               <div className='flex text-md gap-2'>
                 {location.state.listingGuestLabel} | {location.state.roomType} | {location.state.listingBedLabel} {location.state.listingBathroomLabel} 
               </div>
+
             </div>
             <h1>{location.state.title}</h1>
         </div>
