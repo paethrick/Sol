@@ -47,9 +47,7 @@ export function FlatPage(){
               <div className='flex text-md gap-2'>
                 {location.state.listingGuestLabel} | {location.state.roomType} | {location.state.listingBedLabel} {location.state.listingBathroomLabel} 
               </div>
-
             </div>
-            <h1>{location.state.title}</h1>
         </div>
     )
 }
