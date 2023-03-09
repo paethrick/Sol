@@ -1,6 +1,11 @@
-import Sol_Picture from '../../public/Sol_Picture.png'
+import { useLocation, useParams } from 'react-router-dom'
+import Sol_Picture from '/Sol_Picture.png'
 
-export function FlatPage({ flat }){
+
+export function FlatPage({ flats }){
+    
+    const location = useLocation()
+    console.log(location)
     return(
         <div>
             {/* Logo */}
@@ -9,9 +14,11 @@ export function FlatPage({ flat }){
                 className='w-48'/>
             </div>
             {/* Picture Slide */}
-            <div className='flex w-auto bg-sky-400 justify-center h-max'>
-                <span>s</span>
+            <div className='flex pl-20 bg-sky-400 text-3xl'>
+                <h1>{location.state.title}</h1>
+                <h2></h2>
             </div>
+            <h1>{location.state.title}</h1>
         </div>
     )
 }
