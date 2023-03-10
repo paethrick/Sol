@@ -1,4 +1,4 @@
-import Sol_Picture from '../../public/Sol_Picture.png'
+import Sol_Picture from '/Sol_Picture.png'
 
 export function FlatPage({ flat }){
     return(
