@@ -1,4 +1,3 @@
-
 import { useLocation, useParams, Link } from 'react-router-dom'
 import Sol_Picture from '/Sol_Picture.png'
 import { useEffect, useState } from 'react'
