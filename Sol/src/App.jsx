@@ -22,8 +22,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path='flat' element={<FlatPage flat={flat[0]}/>}/>
-      <Route path='/' element={<MainPage flat={flat[0]}/>}/>
+      <Route path='/' element={<MainPage/>}/>
+      <Route path='/flat/*' element={<FlatPage/>}/>
     </Routes>
   )
 }
