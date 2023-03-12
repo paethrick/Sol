@@ -11,11 +11,13 @@ export const MainPage = () => {
     const [search, setSearch] = useState([])
     const [category, setCategory] = useState('')
 
+
     useEffect(()=>{
       if(property.length<1){
         starterPage()
       }
     },[])
+
 
     // STARTER PAGE
     const starterPage = async () => {
@@ -65,6 +67,7 @@ export const MainPage = () => {
         'destName' : data.data[0].display_name
       }
       setSearch(pack)
+
     }
 
     // GET CATEGORY
@@ -82,6 +85,7 @@ export const MainPage = () => {
       const limit = 10
       const limitedData = data.data.slice(0,limit)
       setCategory(limitedData)
+
     }
 
     return(
@@ -89,13 +93,14 @@ export const MainPage = () => {
         <button onClick={searchProperty}>Press</button>
         <br />
         <button onClick={getCategory}>Category</button>
+
         <div className="flex justify-between">
           {/* Logo */}
           <div>
                   <img src={Sol_Picture} alt="Sol"
                   className='w-24'/>
           </div>
-          <SearchBar searchDestination={searchDestination} category={category}/>
+          <SearchBar searchDestination={searchDestination}/>
           <p></p>
         </div>
         <NavBar category={category}/>

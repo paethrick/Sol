@@ -2,11 +2,11 @@ import { useLocation, useParams, Link } from 'react-router-dom'
 import Sol_Picture from '/Sol_Picture.png'
 import { useEffect, useState } from 'react'
 
-export function FlatPage(){
+export function PropertyPage(){
 
-    const [flat,setFlat] = useState()
+    const [property,setproperty] = useState()
     useEffect(()=>{
-      setFlat(location)
+      setproperty(location)
     },[])
     const location = useLocation()
     console.log(location)
