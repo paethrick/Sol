@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { FlatCard } from "./FlatCard";
+import { PropertyCard } from "./PropertyCard";
 import { NavBar } from "../components/NavBar";
 import Sol_Picture from '/Sol_Picture.png'
 import { SearchBar } from "../components/SearchBar";
@@ -7,17 +7,16 @@ import { Link } from "react-router-dom";
 
 
 export const MainPage = () => {
-    const [flats, setFlat] = useState([])
+    const [property, setProperty] = useState([])
     const [search, setSearch] = useState([])
 
     useEffect(()=>{
-      if(flats.length<1){
-        starter()
+      if(property.length<1){
+        starterPage()
       }
-      console.log('fire once')
     },[])
 
-    const starter = async () => {
+    const starterPage = async () => {
 
       const options = {
         method: 'GET',
@@ -29,11 +28,11 @@ export const MainPage = () => {
 
       const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchProperty?category=TAB_8225&totalRecords=10&currency=USD&adults=1`, options)
       const data = await response.json()
-      setFlat(data.data)
+      setProperty(data.data)
     }
     
-    const getFlats = async () => {
-
+    // SEARCH PROPERTY BY PLACE
+    const searchProperty = async () => {
       const options = {
         method: 'GET',
         headers: {
@@ -44,13 +43,10 @@ export const MainPage = () => {
 
       const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchPropertyByPlace?id=${search.destId}&display_name=${search.destName}%2C%20${search.destId}&totalRecords=18&currency=USD&adults=1`, options)
       const data = await response.json()
-      setFlat(data.data)
+      setProperty(data.data)
     }
-
     
-
     const searchDestination = async (input) => {
-
       const options = {
         method: 'GET',
         headers: {
@@ -67,12 +63,11 @@ export const MainPage = () => {
         'destName' : data.data[0].display_name
       }
       setSearch(pack)
-      getFlats() 
     }
 
     return(
       <div>
-        <button onClick={getFlats}>Press</button>
+        <button onClick={searchProperty}>Press</button>
         <div className="flex justify-between">
           {/* Logo */}
           <div>
@@ -85,7 +80,7 @@ export const MainPage = () => {
         <NavBar />
         <div className="flex justify-center">
         <div className="flex flex-wrap w-auto gap-x-7 justify-center mx-7">
-            {flats ? flats.map((e,i)=><FlatCard flats={flats[i]} key={i}/>) : null}
+            {property ? property.map((e,i)=><PropertyCard property={property[i]} key={i}/>) : null}
         </div>
         </div>
       </div>

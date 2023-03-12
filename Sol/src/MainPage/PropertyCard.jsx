@@ -1,20 +1,19 @@
 import { useState } from "react"
-import { FlatPage } from "../FlatPage/FlatPage"
 import { Link, Routes, Route, NavLink } from "react-router-dom"
 
-export const FlatCard = ({ flats,index }) => {
+export const PropertyCard = ({ property,index }) => {
 
     let [currentIndex,setCurrentIndex] = useState(0)
 
     
 
     const goToPrevious = () => {
-        let newIndex = currentIndex != 0 ? currentIndex = currentIndex - 1  : flats.images.length-1
+        let newIndex = currentIndex != 0 ? currentIndex = currentIndex - 1  : property.images.length-1
         setCurrentIndex(newIndex)
     }
 
     const goToNext = () => {
-        let newIndex = currentIndex != flats.images.length-1 ? currentIndex = currentIndex + 1  : 0
+        let newIndex = currentIndex != property.images.length-1 ? currentIndex = currentIndex + 1  : 0
         setCurrentIndex(newIndex)
     }
     
@@ -31,13 +30,13 @@ export const FlatCard = ({ flats,index }) => {
                     onClick={goToNext}>&#x1F892;</button>
                     <ul>
                         <li>
-                            <NavLink state={flats} to={`flat/${index}`}><img src={flats.images[currentIndex]} alt="" 
+                            <NavLink state={property} to={`property/${index}`}><img src={property.images[currentIndex]} alt="" 
                             className="rounded-3xl h-72 w-80 object-cover "/></NavLink>
                         </li>
                     </ul>
                 </div>
-                <h1 className="text-xl font-semibold pl-2">{flats.title}</h1>
-                <h2 className="pl-2">{flats.accessibilityLabel}</h2>
+                <h1 className="text-xl font-semibold pl-2">{property.title}</h1>
+                <h2 className="pl-2">{property.accessibilityLabel}</h2>
             </div>
         </div>
     )
