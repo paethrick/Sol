@@ -13,7 +13,11 @@ export const MainPage = () => {
     useEffect(()=>{
       if(property.length<1){
         starterPage()
+        setTimeout(()=>{
+          getCategory()
+        },1000)
       }
+
     },[])
 
     const starterPage = async () => {
@@ -32,7 +36,9 @@ export const MainPage = () => {
     }
     
     // SEARCH PROPERTY BY PLACE
-    const searchProperty = async () => {
+
+    const searchPropertyByPlace = async (input) => {
+
       const options = {
         method: 'GET',
         headers: {
@@ -40,11 +46,27 @@ export const MainPage = () => {
           'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
         }
       };
-
-      const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchPropertyByPlace?id=${search.destId}&display_name=${search.destName}%2C%20${search.destId}&totalRecords=18&currency=USD&adults=1`, options)
+      const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchPropertyByPlace?id=${input.destId}&display_name=${input.destName}%2C%20${input.destId}&totalRecords=18&currency=USD&adults=1`, options)
       const data = await response.json()
       setProperty(data.data)
     }
+
+
+    // SEARCH PROPERTY BY CATEGORY
+    const searchPropertyByCategory = async (category) => {
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'b339facf5amsh2d95b4cac3039a7p19abbejsnc843ac7a1f19',
+          'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
+        }
+      };
+      
+      const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchProperty?category=${category}&totalRecords=18&currency=USD&adults=1&checkin=2023-04-20&checkout=2023-04-25`, options)
+      const data = await response.json()
+      setProperty(data.data)
+    }
+
     
     const searchDestination = async (input) => {
       const options = {
@@ -63,11 +85,39 @@ export const MainPage = () => {
         'destName' : data.data[0].display_name
       }
       setSearch(pack)
+
+      
+      setTimeout(()=>{
+        searchPropertyByPlace(pack)
+      },1000)
     }
+
+    // GET CATEGORY
+    const getCategory = async () => {
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'b339facf5amsh2d95b4cac3039a7p19abbejsnc843ac7a1f19',
+          'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
+        }
+      };
+
+      const response = await fetch('https://airbnb19.p.rapidapi.com/api/v1/getCategory', options)
+      const data = await response.json()
+      const limit = 10
+      const limitedData = data.data.slice(0,limit)
+      setCategory(limitedData)
+    }
+
+    // LOAD CATEGORY
+    const loadCategory = (e) => {
+      searchPropertyByCategory(e)
+    }
+
+    
 
     return(
       <div>
-        <button onClick={searchProperty}>Press</button>
         <div className="flex justify-between">
           {/* Logo */}
           <div>
