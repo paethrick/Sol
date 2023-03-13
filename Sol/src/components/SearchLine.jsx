@@ -1,19 +1,13 @@
 import { useState } from "react"
 
-export const SearchLine = ({ addTogether, name }) => {
+export const SearchLine = () => {
 
   const [word, setWord] = useState('')
-
-  const Add = (e) => {
-    e.preventDefault()
-  }
 
   const handleChange = (e) => {
     const value = e.target.value
     setWord(value)
   }
-
-  
 
   return(
     <>
