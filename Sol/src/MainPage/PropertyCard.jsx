@@ -20,7 +20,7 @@ export const PropertyCard = ({ property,index }) => {
     return(
         <div>
             <div className="flex-nowrap mt-9 h-auto w-[17rem] pb-5
-            cursor-pointer">
+            cursor-pointer ">
                 <div className="relative">
                     <button className="flex place-items-center justify-center text-5xl absolute hover:bg-gray-300 hover:text-gray-700 text-white rounded-3xl
                     mt-28 pb-3 pr-2 h-10 w-10 left-1 ease-in duration-200 z-10 cursor-default"
