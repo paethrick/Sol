@@ -30,7 +30,7 @@ export const PropertyCard = ({ property,index }) => {
                     onClick={goToNext}>&#x1F892;</button>
                     <ul>
                         <li>
-                            <NavLink state={property} to={`property/${index}`}><img src={property.images[currentIndex]} alt="" 
+                            <NavLink state={property} to={`property/${currentIndex}`}><img src={property.images[currentIndex]} alt="" 
                             className="rounded-3xl h-72 w-80 object-cover "/></NavLink>
                         </li>
                     </ul>
