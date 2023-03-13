@@ -1,11 +1,9 @@
 import { useState } from "react"
 import { SearchLine } from "./SearchLine"
 
-export const SearchPanel = ({ prop,searchDestination }) => {
+export const SearchPanel = ({ propertyList }) => {
 
   const [word, setWord] = useState([1,2])
-  const [input, setInput] = useState([])
-  const [things, addTogether] = useState('')
 
   const Add = (e) => {
     e.preventDefault()
@@ -14,7 +12,7 @@ export const SearchPanel = ({ prop,searchDestination }) => {
       here.push(k.value)
     }
     here.splice(-1)
-    searchDestination([here])
+    propertyList([here])
   }
 
   const raise = () => {
@@ -33,7 +31,7 @@ export const SearchPanel = ({ prop,searchDestination }) => {
       <br />
       <button onClick={lower}> Minus </button>
       <form action="submit" className="flex gap-2" onSubmit={Add}>
-        {word ? word.map((e,i)=> <SearchLine key={i} name={i} addTogether={addTogether}/>) : null}
+        {word ? word.map((e,i)=> <SearchLine key={i} name={i}/>) : null}
         <button type="submit"> Press </button>
       </form>
       

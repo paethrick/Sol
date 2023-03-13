@@ -15,6 +15,10 @@ export const MainPage = () => {
     useEffect(()=>{
       if(property.length<1){
         starterPage()
+        setTimeout(()=>{
+          getCategory()
+        },1200)
+
       }
     },[])
 
@@ -50,20 +54,6 @@ export const MainPage = () => {
       setProperty(data.data)
     }
 
-    // SEARCH PROPERTY BY CATEGORY
-    const searchPropertyByCategory = async (category) => {
-      const options = {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': 'b339facf5amsh2d95b4cac3039a7p19abbejsnc843ac7a1f19',
-          'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
-        }
-      };
-      
-      const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchProperty?category=${category}&totalRecords=10&currency=USD&adults=1&checkin=2023-04-20&checkout=2023-04-25`, options)
-      const data = await response.json()
-      setProperty(data.data)
-    }
     
     // SEARCH DESTINATION
     const searchDestination = async (input) => {
@@ -83,8 +73,12 @@ export const MainPage = () => {
         'destName' : data.data[0].display_name
       }
       setSearch(pack)
-
+      setTimeout(()=>{
+        searchPropertyByPlace(pack)
+      },1200)
     }
+    
+
 
     // GET CATEGORY
     const getCategory = async () => {

@@ -1,13 +1,14 @@
 import { SearchPanel } from '../components/SearchPanel'
 import { useState } from 'react';
+import { PropertyCard } from '../MainPage/PropertyCard';
 
 export const RoadTripPage = () => {
 
-  const [search,setSearch] = useState([])
+  const [search,setSearch] = useState(false)
   const [property, setProperty] = useState([])
 
   // SEARCH PROPERTY BY PLACE
-  const searchPropertyByPlace = async () => {
+  const searchPropertyByPlace = async (input) => {
     const options = {
       method: 'GET',
       headers: {
@@ -16,31 +17,25 @@ export const RoadTripPage = () => {
       }
     };
 
-    const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchPropertyByPlace?id=${search.destId}&display_name=${search.destName}%2C%20${search.destId}&totalRecords=4&currency=USD&adults=1`, options)
+    const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchPropertyByPlace?id=${input.destId}&display_name=${input.destName}%2C%20${input.destId}&totalRecords=4&currency=USD&adults=1`, options)
     const data = await response.json()
     console.log(data.data)
-    setProperty(data.data)
+    const something = data.data
+    setProperty(oldArray =>[...oldArray,something])
+    console.log(property)
   }
 
-  
-  async function sleep() {
-    return new Promise(resolve => setTimeout(resolve,3000))
-  }
-
-  async function runIt(inp){
-    await sleep()
-    test(inp)
-  }
-
-const test2 = () => {
-  console.log(search)
+const printOut = () => {
+  console.log(property)
 }
 
-const test = (input) => {
-  input[0].map( async (elem) => {
-    await sleep()
-    searchDestination(input)
-  }) 
+const startSearch = (input) => {
+  const tryThis = input[0]
+  for(let i=0; i<tryThis.length; i++) {
+    setTimeout(()=>{
+      searchDestination(tryThis[i])
+    },i * 4000);
+  }
 }
 
 
@@ -55,7 +50,6 @@ const test = (input) => {
     };
 
     
-    
       console.log(input)
       const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchDestination?query=${input}`,options)
       const data = await response.json()
@@ -65,26 +59,24 @@ const test = (input) => {
         'destName' : data.data[0].display_name
       }
     
-      setSearch([...search,pack])
-      console.log(search)
-       
-    
-
-    // const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchDestination?query=${input}`,options)
-    // const data = await response.json()
-    // const pack = {
-    //   'destId' : data.data[0].id,
-    //   'countryCode' : data.data[0].countryCode,
-    //   'destName' : data.data[0].display_name
-    // }
-    // console.log(input)
-    // setSearch(pack)
+      //setSearch([...search,pack])
+      setTimeout(()=>{
+        searchPropertyByPlace(pack)
+      },6000)
+      
   }
 
   return(
     <div>
-      <button onClick={test2}> Final </button>
-      <SearchPanel searchDestination={runIt}/>
+    <div>
+      <button onClick={printOut}> Print </button>
+      <SearchPanel propertyList={startSearch}/>
+    </div>
+    <div className="flex justify-center">
+        <div className="flex flex-wrap w-auto gap-x-7 justify-center mx-7">
+            {search ? property[0].map((e,i)=><PropertyCard property={property[i]} index={i} key={i}/>) : null}
+        </div>
+        </div>
     </div>
   )
 }
