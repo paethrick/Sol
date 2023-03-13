@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 export const MainPage = () => {
     const [property, setProperty] = useState([])
     const [search, setSearch] = useState([])
+    const [category, setCategory] = useState('')
+
 
     useEffect(()=>{
       if(property.length<1){
@@ -20,6 +22,8 @@ export const MainPage = () => {
 
     },[])
 
+
+    // STARTER PAGE
     const starterPage = async () => {
 
       const options = {
@@ -36,9 +40,7 @@ export const MainPage = () => {
     }
     
     // SEARCH PROPERTY BY PLACE
-
     const searchPropertyByPlace = async (input) => {
-
       const options = {
         method: 'GET',
         headers: {
@@ -67,7 +69,24 @@ export const MainPage = () => {
       setProperty(data.data)
     }
 
+
+    // SEARCH PROPERTY BY CATEGORY
+    const searchPropertyByCategory = async (category) => {
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'b339facf5amsh2d95b4cac3039a7p19abbejsnc843ac7a1f19',
+          'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
+        }
+      };
+      
+      const response = await fetch(`https://airbnb19.p.rapidapi.com/api/v1/searchProperty?category=${category}&totalRecords=10&currency=USD&adults=1&checkin=2023-04-20&checkout=2023-04-25`, options)
+      const data = await response.json()
+      setProperty(data.data)
+    }
+
     
+    // SEARCH DESTINATION
     const searchDestination = async (input) => {
       const options = {
         method: 'GET',
@@ -85,11 +104,31 @@ export const MainPage = () => {
         'destName' : data.data[0].display_name
       }
       setSearch(pack)
-
-      
       setTimeout(()=>{
         searchPropertyByPlace(pack)
       },1000)
+    }
+
+    // GET CATEGORY
+    const getCategory = async () => {
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'b339facf5amsh2d95b4cac3039a7p19abbejsnc843ac7a1f19',
+          'X-RapidAPI-Host': 'airbnb19.p.rapidapi.com'
+        }
+      };
+
+      const response = await fetch('https://airbnb19.p.rapidapi.com/api/v1/getCategory', options)
+      const data = await response.json()
+      const limit = 10
+      const limitedData = data.data.slice(0,limit)
+      setCategory(limitedData)
+    }
+
+    // LOAD CATEGORY
+    const loadCategory = (e) => {
+      searchPropertyByCategory(e)
     }
 
     // GET CATEGORY
@@ -127,7 +166,7 @@ export const MainPage = () => {
           <SearchBar searchDestination={searchDestination}/>
           <p></p>
         </div>
-        <NavBar />
+        <NavBar category={category} loadCategory={loadCategory}/>
         <div className="flex justify-center">
         <div className="flex flex-wrap w-auto gap-x-7 justify-center mx-7">
             {property ? property.map((e,i)=><PropertyCard property={property[i]} key={i}/>) : null}
